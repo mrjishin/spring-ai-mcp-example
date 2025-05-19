@@ -1,6 +1,11 @@
 This project demonstrates a sample implementation of Model Context Protocol (MCP) using Spring AI.
 
 ## Install
+#### Install Ollama
+- Please install Ollama by referring to the link below.
+```
+  https://ollama.com/blog/ollama-is-now-available-as-an-official-docker-image
+```
 #### MCP Server
 - git clone this sources
 ```
