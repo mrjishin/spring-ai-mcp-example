@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/default}">
+<th:block layout:fragment="contents">
+
+<div class="container-fluid">
+  <h5>SSE Example</h5>
+	<form name="form" onsubmit="event.preventDefault();">
+	  <div class="row mb-1">
+      <div class="col-sm">
+        <button type="button" class="btn btn-sm btn-primary" onclick="startSseEvent();">Start</button>
+        <button type="submit" class="btn btn-sm btn-primary" onclick="stopSseEvent();">Stop</button>
+      </div>
+    </div>
+	  <div class="row">
+	    <div class="col-sm">
+		      <textarea name="message" class="form-control form-control-sm" rows="20"></textarea>
+		  </div>
+	  </div>
+  </form>
+</div>
+
+<script>
+let source = null;
+const startSseEvent = (e) => {
+	if(source != null)
+		return;
+	source = new EventSource('[[@{/api/sse}]]');
+	source.addEventListener('open', (e) => {
+		console.info('Connection was opened.');
+	}, false);
+	source.addEventListener('error', (e) => {
+		let txt;
+    switch (e.target.readyState) {
+	    case EventSource.CONNECTING:
+	      txt = 'Reconnecting...';
+	      break;
+	    case EventSource.CLOSED:
+				txt = 'Connection failed. Will not retry.';
+				break;
+    }
+    console.error('Connection error: ' + txt);
+  }, false);
+	source.addEventListener('message', function(e) {
+		form.message.value += e.data + '\n';
+	  //const userInfo = JSON.parse(e.data);
+		//form.message.value += `ID: ${userInfo.id}, 회원계정: ${userInfo.account}, 회원이름: ${userInfo.name}\n`;
+		form.message.scrollTop = form.message.scrollHeight;
+  }, false);
+};
+const stopSseEvent = (e) => {
+	if(source == null)
+	    return;
+	source.close();
+	source = null;
+	console.log("Connection closed");
+};
+</script>
+
+</th:block>
+</html>

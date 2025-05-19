@@ -1,0 +1,35 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: spring-ai-mcp-client-example
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      init:
+        pull-model-strategy: never
+    openai:
+      api-key: <YOUR_OPENAI_API_KEY>
+    mcp:
+      client:
+        enabled: true
+        name: weather-mcp-client
+        version: 1.0.0
+        type: sync
+        request-timeout: 20s
+        root-change-notification: true
+        toolcallback:
+          enabled: true
+        sse:
+          connections:
+            piconet-mcp-server:
+              url: http://localhost:8081
+
+logging:
+  level:
+    org.springframework.ai: DEBUG
+    org.springframework.security: DEBUG
+
+api:
+  server:
+    url: http://localhost:8081

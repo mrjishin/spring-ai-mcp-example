@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/default}">
+<th:block layout:fragment="contents">
+<script th:src="@{/js/table-check.js}"></script>
+<style type="text/css">
+.cursor-pointer {
+  cursor: pointer;
+}
+</style>
+<h1>Inquiry List</h1>
+  <form name="searchForm" th:action="@{/inquiries/}" method="get">
+    <input type="hidden" name="page">
+  </form>
+  <form name="listForm" onsubmit="event.preventDefault();">
+		<div class="row">
+			<div class="col-sm">
+			  <div class="text-end mb-1">
+			    <button type="button" class="btn btn-sm btn-danger" onclick="dels();">선택 삭제</button>
+			    <button type="button" class="btn btn-sm btn-primary" th:onclick="|location.href='@{/inquiries/addForm}';|">신규 등록</button>
+			  </div>
+				<table id="listTable" class="table table-hover">
+				  <thead class="text-center">
+				    <tr bgcolor="#eeeeee">
+				      <th width="60">
+				        <input type="checkbox" name="chkAll" class="form-check-input form-check-input-sm">
+				      </th>
+				      <th width="80">ID</th>
+				      <th>Question</th>
+				      <th width="200">등록일</th>
+				      <th width="80">삭제</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr th:each="item: ${inquiries}" class="cursor-pointer">
+				      <td align="center">
+				        <input type="checkbox" name="ids" class="form-check-input form-check-input-sm" th:value="${item.id}">
+				      </td>
+				      <td align="center" th:onclick="|location.href='@{/inquiries/editForm(id=${item.id})}';|">[[${item.id}]]</td>
+				      <td th:onclick="|location.href='@{/inquiries/editForm(id=${item.id})}';|">[[${item.question}]]</td>
+				      <td class="text-center" th:onclick="|location.href='@{/inquiries/editForm(id=${item.id})}';|">[[${#temporals.format(item.regDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+				      <td class="text-center">
+				        <button type="button" class="btn btn-sm btn-danger" th:onclick="|del(${item.id});|">삭제</button>
+				      </td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
+	  </div>
+	</form>
+	<div class="row">
+	  <div class="col-sm mt-2">
+	     <th:block th:replace="~{fragments/paging :: paging}" th:with="paging=${paging}" />
+	  </div>
+	</div>
+
+<script>
+const goPage = (page) => {
+	searchForm.page.value = page;
+	searchForm.submit();
+};
+const dels = () => {
+	const chks = document.querySelector('tbody').querySelectorAll('input[type=checkbox]:checked');
+  if(chks.length == 0) {
+	  alert('선택된 항목이 없습니다.');
+	  return;
+  }
+	if(confirm('선택하신 항목을 정말로 삭제 하시겠습니까?')) {
+		let ids = [];
+		for(const chk of chks) {
+			ids.push(chk.value);
+		}
+		fetch('[[@{/api/inquiries}]]',{
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(ids)
+		})
+		.then(res => {
+			if(res.ok) {
+				location.reload(true);
+			}
+		})
+		.catch(error => {
+			alert(error);
+		});
+	}
+};
+initTableCheck('listTable');
+</script>
+
+</th:block>
+</html>

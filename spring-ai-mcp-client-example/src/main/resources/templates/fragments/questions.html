@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="questions">
+  <h5>Prompt Sample:</h5>
+  <style>
+    #questions li {
+      cursor: pointer;
+    }
+  </style>
+  <ol id="questions">
+    <li onclick="updatePrompt(this);">What's the weather like in Seoul?</li>
+    <li onclick="updatePrompt(this);">What's the weather like in Busan right now?</li>
+    <li onclick="updatePrompt(this);">Register an inquiry with the question ""Do you offer any discounts for first-time buyers?"</li>
+    <li onclick="updatePrompt(this);">Search for queries that include "energy efficiency rating" in the question.</li>
+    <li onclick="updatePrompt(this);">Please tell me the details of the inquiry with ID 7 in the format of response ID, Question, Answer, RegDate.</li>
+    <li onclick="updatePrompt(this);">Please search for inquiries that contain "product" and create a PDF.</li>
+  </ol>
+  <script>
+  const updatePrompt = (li) => {
+	  chatForm.prompt.value = li.innerText;
+	  chatForm.prompt.focus();
+  };
+  chatForm.prompt.value = document.querySelector('#questions > li:first-child').innerText;
+  </script>
+</th:block>
+</html>

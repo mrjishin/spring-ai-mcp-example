@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/default}">
+<th:block layout:fragment="contents">
+<style type="text/css">
+.cursor-pointer {
+  cursor: pointer;
+}
+</style>
+<h1>상담 내용 등록</h1>
+<form name="form" th:action="@{/inquiries/add}" method="post">
+	<div class="row">
+		<div class="col-sm-8">
+			<table class="table">
+			  <tbody class="text-center">
+			    <tr>
+            <th bgcolor="#eeeeee">질문</th>
+            <td>
+              <textarea name="question" class="form-control form-control-sm" rows="10" required>상담 질문 테스트 내용입니다.</textarea>
+            </td>
+          </tr>
+			  </tbody>
+			  </tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+	  <div class="col-sm-4">
+	    <button type="button" class="btn btn-sm btn-info" onclick="history.back();"> 뒤 로 </button>
+	  </div>
+	  <div class="col-sm-4 text-end">
+      <button type="submit"class="btn btn-sm btn-primary"> 등 록 </button>
+    </div>
+	</div>
+</form>
+
+</th:block>
+</html>

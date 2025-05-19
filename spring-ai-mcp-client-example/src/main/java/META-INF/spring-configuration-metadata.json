@@ -1,0 +1,9 @@
+{"properties": [
+  {
+    "name": "spring.ai.mcp.client.sse.connections.piconet-mcp-server.url",
+    "type": "java.lang.String"
+  },{
+    "name": "logging.level.org.springframework.ai",
+    "type": "java.lang.String"
+  }
+]}

@@ -1,0 +1,75 @@
+- get models
+URL: 
+ResponseBody:
+{
+  "models": [
+    {
+      "name": "bnksys/yanolja-eeve-korean-instruct-10.8b:latest",
+      "model": "bnksys/yanolja-eeve-korean-instruct-10.8b:latest",
+      "modified_at": "2025-05-03T11:38:07.219317301+09:00",
+      "size": 11482362186,
+      "digest": "a3102004a8cda456f718ef3dc9b80026934f3ce67a6e9f2a7e66453185921b12",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": [
+          "llama"
+        ],
+        "parameter_size": "11B",
+        "quantization_level": "Q8_0"
+      }
+    },
+    {
+      "name": "antegral/llama-varco:latest",
+      "model": "antegral/llama-varco:latest",
+      "modified_at": "2025-05-03T11:38:06.072297657+09:00",
+      "size": 16069404659,
+      "digest": "8066f92168fc871e28748ab02842270e37c09c31a153238f74af0e2063de6a40",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": [
+          "llama"
+        ],
+        "parameter_size": "8.0B",
+        "quantization_level": "F16"
+      }
+    },
+    {
+      "name": "llama-3.2-Korean:latest",
+      "model": "llama-3.2-Korean:latest",
+      "modified_at": "2025-04-22T09:24:46.476669987+09:00",
+      "size": 2019379799,
+      "digest": "4470b54cca011a298c7dc192524b9e88c8a22e19ba1191422b01d4cb54b2df92",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": [
+          "llama"
+        ],
+        "parameter_size": "3.2B",
+        "quantization_level": "Q4_K_M"
+      }
+    },
+    {
+      "name": "exaone3.5:latest",
+      "model": "exaone3.5:latest",
+      "modified_at": "2025-04-19T15:22:16.170487782+09:00",
+      "size": 4770664857,
+      "digest": "c7c4e3d1ca22fe9225f18b35eb719f67e2ca96a42e7fd17294a45b83ba8fbf03",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "exaone",
+        "families": [
+          "exaone"
+        ],
+        "parameter_size": "7.8B",
+        "quantization_level": "Q4_K_M"
+      }
+    }
+  ]
+}

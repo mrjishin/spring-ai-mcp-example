@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MCP Example</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+	<style type="text/css">
+	.left-menu {
+		background-color: #f8f9fa;
+		border-right: 1px solid #dee2e6;
+	}
+	.right-content {
+	  background-color: #ffffff;
+	}
+	</style>
+</head>
+<body>
+	<header class="bg-dark text-white py-3">
+		<div class="container">
+	    <th:block th:replace="~{fragments/header :: header}"></th:block>
+		</div>
+	</header>
+
+	<div class="container-fluid">
+	  <div class="row">
+	    <div class="col-md-2 left-menu">
+	      <th:block th:replace="~{fragments/menu :: menu}"></th:block>
+	    </div>
+	    <div class="col-md-9 right-content p-3">
+	      <th:block layout:fragment="contents"></th:block>
+	    </div>
+	  </div>
+	</div>
+
+	<footer class="bg-light text-center py-3 mt-4">
+		<div class="container">
+		  <th:block th:replace="~{fragments/footer :: footer}"></th:block>
+		</div>
+	</footer>
+
+</body>
+</html>

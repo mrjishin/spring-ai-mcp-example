@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="paging">
+  <nav th:if="${paging.total &gt; 0}" class="mt-3 mb-4">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" th:classappend="${paging.page &lt;= 1} ? 'disabled'">
+        <a class="page-link" th:href="${'javascript:goPage(1);'}" tabindex="-1">|&lt;</a>
+      </li>
+      <li class="page-item" th:classappend="${paging.block &lt;= 1 ? 'disabled' : ''}">
+        <a class="page-link" th:href="${'javascript:goPage('+paging.prevBlockStartPage+');'}" tabindex="-1">&lt;</a>
+      </li>
+      <th:block
+        th:each="i: ${#numbers.sequence(paging.blockStartPage, paging.blockLastPage)}">
+       <li class="page-item" th:classappend="${paging.page == i} ? 'disabled'" th:if="${i != 0}">
+       	<a class="page-link" th:href="${'javascript:goPage('+i+');'}" th:text="${i}"></a>
+       </li>
+      </th:block>
+      <li class="page-item" th:classappend="${paging.page &gt;= paging.lastPage || paging.block &gt;= paging.lastBlock} ? 'disabled'">
+        <a class="page-link" th:href="${'javascript:goPage('+paging.nextBlockStartPage+');'}">&gt;</a>
+      </li>
+      <li class="page-item" th:classappend="${paging.block &gt;= paging.lastBlock ? 'disabled' : ''}">
+        <a class="page-link" th:href="${'javascript:goPage('+paging.lastPage+');'}">&gt;|</a>
+      </li>
+    </ul>
+  </nav>
+</th:block>
+</html>

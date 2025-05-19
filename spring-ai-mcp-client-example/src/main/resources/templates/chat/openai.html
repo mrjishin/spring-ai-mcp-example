@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/default}">
+<th:block layout:fragment="contents">
+
+<h5>[OpenAI]</h5>
+<form name="chatForm" onsubmit="return(handleSubmit(this));">
+  <div class="mb-3">
+    <label for="prompt" class="form-label">Prompt</label>
+    <textarea class="form-control" id="prompt" rows="3"
+      onkeydown="promptPressed(event);"></textarea>
+  </div>
+  <div class="mb-3 text-end">
+    <button type="submit" class="btn btn-sm btn-primary">Send</button>
+  </div>
+  <div class="mb-3">
+    <label for="answer" class="form-label">Response</label>
+    <textarea class="form-control" id="answer" rows="10" readonly></textarea>
+  </div>
+</form>
+
+<br/>
+<th:block th:insert="~{fragments/questions :: questions}" />
+
+<script>
+const handleSubmit = () => {
+  if(chatForm.prompt.value == '') {
+    alert('프롬프트을 입력하세요.');
+    return false;
+  }
+  chatForm.prompt.disabled = true;
+  chatForm.answer.value = "";
+  const params = {content: chatForm.prompt.value};
+  fetch('[[@{/api/chat/openai}]]',{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(params)
+  })
+  .then(async res => {
+    if(!res.ok) throw new Error(`Status code: ${res.status}`);
+    res.text()
+      .then(text => {
+        chatForm.answer.value = text;
+      }
+    );
+  })
+  .catch(error => {
+    alert(error);
+  })
+  .finally(() => {
+    //chatForm.prompt.value = '';
+    chatForm.prompt.disabled = false;
+    chatForm.prompt.focus();
+  });
+  return false;
+};
+const promptPressed = (event) => {
+  if (event.key == 'Enter') {
+      event.preventDefault();
+      handleSubmit();
+    }
+};
+chatForm.prompt.focus();
+</script>
+
+</th:block>
+</html>
