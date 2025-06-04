@@ -66,7 +66,7 @@ public class ChatConfig
 			builder.defaultSystem(defaultSystemText);
 
 		ChatClient chatClient = builder
-				.defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
+				.defaultAdvisors(MessageChatMemoryAdvisor.builder(chatMemory).build())
 				.defaultToolCallbacks(toolCallbackProvider)
 				.build();
 
@@ -84,7 +84,7 @@ public class ChatConfig
 			builder.defaultSystem(defaultSystemText);
 
 		ChatClient chatClient = builder
-				.defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
+				.defaultAdvisors(MessageChatMemoryAdvisor.builder(chatMemory).build())
 				.defaultToolCallbacks(toolCallbackProvider)
 				.build();
 
